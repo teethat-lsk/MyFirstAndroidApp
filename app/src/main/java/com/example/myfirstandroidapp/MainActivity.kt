@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.affirmations.data.DataSource
 import com.example.myfirstandroidapp.adapter.AffirmationRecViewAdapter
+import com.example.myfirstandroidapp.adapter.AffirmationRecViewListAdapter
+import com.example.myfirstandroidapp.adapter.AffirmationRecViewListHolder
 import com.example.myfirstandroidapp.databinding.ActivityMainBinding
+import com.example.myfirstandroidapp.model.Affirmation.Affirmation
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -22,10 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val dataSource = DataSource().loadAffirmations()
-        val affiremationAdapter = AffirmationRecViewAdapter(this, dataSource)
+        val affiremationAdapter = AffirmationRecViewAdapter(this@MainActivity, dataSource)
         val snapHelper = LinearSnapHelper();
-        binding.recView.adapter = affiremationAdapter
+//        binding.recView.adapter = affiremationAdapter
         snapHelper.attachToRecyclerView(binding.recView)
 
+        val affirmationRecViewListAdapter = AffirmationRecViewListAdapter(this@MainActivity)
+        affirmationRecViewListAdapter.submitList(dataSource)
+        binding.recView.adapter = affirmationRecViewListAdapter
     }
 }

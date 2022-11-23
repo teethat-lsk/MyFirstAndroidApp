@@ -1,0 +1,4 @@
+[color "branch"]
+	current = green
+	local = yellow
+	remote = cyan

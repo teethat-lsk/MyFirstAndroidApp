@@ -1,6 +1,7 @@
 package com.example.myfirstandroidapp
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.GridLayout
@@ -20,18 +21,17 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-
+    companion object {
+        const val TEXT_DATA = "text_data"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val dataSource = DataSource().loadAffirmations()
-        val affiremationAdapter = AffirmationRecViewAdapter(this@MainActivity, dataSource)
-        val snapHelper = LinearSnapHelper();
-//        binding.recView.adapter = affiremationAdapter
-        snapHelper.attachToRecyclerView(binding.recView)
+        val intent = Intent(this,SecondActivity::class.java)
+        intent.putExtra(TEXT_DATA,"hi! second activity")
+        binding.btn1.setOnClickListener{
+            button -> startActivity(intent)
+        }
 
-        val affirmationRecViewListAdapter = AffirmationRecViewListAdapter(this@MainActivity)
-        affirmationRecViewListAdapter.submitList(dataSource)
-        binding.recView.adapter = affirmationRecViewListAdapter
     }
 }
